@@ -14,7 +14,7 @@ export default class GridElement extends Component<Props, State> {
   render() {
     return (
       <div>
-       {this.state.value}
+       ({this.props.yLocation},{this.props.xLocation})
       </div>
     );
   }

@@ -8,10 +8,12 @@ export class Grid extends Component {
 
   render() {
     var elems = [];    
+    let count = 1;
     for (var y = 1; y < 10; y++) {      
       var row = [];
       for (var x = 1; x < 10; x++) {        
-        row.push(<td key={x*y}><GridElement xLocation={x} yLocation={y} value={x * y} /></td>);        
+        row.push(<td key={x*y}><GridElement xLocation={x} yLocation={y} value={count} /></td>);        
+        count++;
       }    
       elems.push(<tr key={y} >{row}</tr>);
     }
