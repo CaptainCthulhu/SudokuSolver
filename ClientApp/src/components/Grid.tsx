@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import GridElement from "./GridElement";
-import Table from "react-bootstrap/Table";
 
 export class Grid extends Component {
   render() {
@@ -11,21 +10,19 @@ export class Grid extends Component {
       var row = [];
       for (var x = 1; x < 10; x++) {
         row.push(
-          <td key={x * y}>
+          <div className={"col"} key={x * y}>
             <GridElement xLocation={x} yLocation={y} value={count} />
-          </td>
+          </div>
         );
         count++;
       }
-      elems.push(<tr key={y}>{row}</tr>);
+      elems.push(
+        <div className="row" key={y}>
+          {row}
+        </div>
+      );
     }
 
-    return (
-      <div>
-        <Table striped bordered hover variant="dark">
-          <tbody> {elems} </tbody>
-        </Table>
-      </div>
-    );
+    return <div className={"border"}> {elems} </div>;
   }
 }

@@ -12,7 +12,7 @@ export default class App extends Component {
     return (
       <Layout>
         <h1> Sudoku Solver </h1>
-        <Route exact path='/' component={Grid} />
+        <Route component={Grid} />
       </Layout>
     );
   }
