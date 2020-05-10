@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace sodokusolver
 {
@@ -20,6 +22,13 @@ namespace sodokusolver
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<SudokuContext>(options =>             
+                options.UseSqlServer(
+                    @"Persist Security Info=False;Trusted_Connection=True;database=SudokuSolver;server=(local)"
+                )                
+            );
+
+            services.AddMvc();
 
             services.AddControllersWithViews();
 
@@ -42,7 +51,7 @@ namespace sodokusolver
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+            }           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

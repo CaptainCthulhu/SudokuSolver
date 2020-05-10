@@ -6,12 +6,12 @@ export class Grid extends Component {
     let elems = [];
     let count = 1;
 
-    for (var y = 1; y < 10; y++) {
+    for (var y = 0; y < 9; y++) {
       var row = [];
-      for (var x = 1; x < 10; x++) {
+      for (var x = 0; x < 9; x++) {
         row.push(
           <div className={"col"} key={x * y}>
-            <GridElement xLocation={x} yLocation={y} gameId={count}/>
+            <GridElement xLocation={x} yLocation={y} gridId={count}/>
           </div>
         );
         count++;

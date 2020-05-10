@@ -4,7 +4,7 @@ import getGameElementValue from "../helperFunctions/requests";
 interface Props {
   xLocation: number;
   yLocation: number;
-  gameId: number;
+  gridId: number;
 }
 
 interface State {
@@ -24,7 +24,7 @@ export default class GridElement extends react.Component<Props, State> {
 
   componentDidMount() {
     var result: object = getGameElementValue(
-      this.props.gameId,
+      this.props.gridId,
       this.props.xLocation,
       this.props.yLocation
     );

@@ -29,13 +29,13 @@ function objectToQueryString(obj: object) {
 }
 
 export default function getGameElementValue(
-  gameId: number,
+  gridId: number,
   xLocation: number,
   yLocation: number
 ): object {
   var url = "/GridController/GetElement";
   var params = {
-    gameId: gameId,
+    gridId: gridId,
     xLocation: xLocation,
     yLocation: yLocation,
   };
