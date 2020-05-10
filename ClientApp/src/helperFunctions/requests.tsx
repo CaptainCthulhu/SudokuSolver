@@ -1,9 +1,11 @@
-async function request(url: string, params: object, method = "GET") {
+import * as querystring from "querystring";
+
+export async function MakeRequest(url: string, params: Object, method = "GET") {
   const options: RequestInit = {
     method,
     headers: {
       "Content-Type": "application/json", // we will be sending JSON
-    }    
+    },
   };
 
   // if params exists and method is GET, add query string to url
@@ -17,28 +19,11 @@ async function request(url: string, params: object, method = "GET") {
   }
 
   const response = await fetch(url, options);
-  const result = await response.json();
-
+  const result = response.json();
   return result;
 }
 
-function objectToQueryString(obj: object) {
-  return Object.entries(obj)
-    .map(entry => entry.values + "=" + entry.values.toString())
-    .join("&");
-}
-
-export default function getGameElementValue(
-  gridId: number,
-  xLocation: number,
-  yLocation: number
-): object {
-  var url = "/GridController/GetElement";
-  var params = {
-    gridId: gridId,
-    xLocation: xLocation,
-    yLocation: yLocation,
-  };
-
-  return request(url, params);
+function objectToQueryString(obj: Object) {
+  let str = querystring.stringify(obj as querystring.ParsedUrlQuery);
+  return str;
 }
