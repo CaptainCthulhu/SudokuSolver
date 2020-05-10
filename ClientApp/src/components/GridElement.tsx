@@ -1,26 +1,34 @@
-import React, { Component } from "react";
+import React, * as react from "react";
+import getGameElementValue from "../helperFunctions/requests";
 
 interface Props {
   xLocation: number;
   yLocation: number;
-  value: number;
+  gameId: number;
 }
 
 interface State {
-  value: number;
+  readOnly: boolean;
+  value: number;  
 }
 
-export default class GridElement extends Component<Props, State> {
+export default class GridElement extends react.Component<Props, State> {
   render() {
-    return (
-      <div>
-       ({this.props.yLocation},{this.props.xLocation})
-      </div>
-    );
+    return <div>{this.state.value}</div>;
   }
 
   constructor(props: Props) {
     super(props);
-    this.state = { value: this.props.value };
+    this.state = ({ readOnly: true, value: 69 });
+  }
+
+  componentDidMount() {
+    var result: object = getGameElementValue(
+      this.props.gameId,
+      this.props.xLocation,
+      this.props.yLocation
+    );
+
+    this.setState({ ...result });
   }
 }

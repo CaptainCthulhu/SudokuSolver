@@ -11,7 +11,7 @@ export class Grid extends Component {
       for (var x = 1; x < 10; x++) {
         row.push(
           <div className={"col"} key={x * y}>
-            <GridElement xLocation={x} yLocation={y} value={count} />
+            <GridElement xLocation={x} yLocation={y} gameId={count}/>
           </div>
         );
         count++;
