@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using sodokusolver;
 
 namespace sodokusolver.Migrations
 {
     [DbContext(typeof(SudokuContext))]
-    partial class SudokuContextModelSnapshot : ModelSnapshot
+    [Migration("20200511005527_ReadOnlyGridElement")]
+    partial class ReadOnlyGridElement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

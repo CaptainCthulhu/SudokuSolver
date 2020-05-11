@@ -1,12 +1,12 @@
 import { MakeRequest } from "./requests";
-import GridElement from "../components/GridElement";
+import * as Routes from "../Constants/Routes";
 
 export function getGameElementValue(
   gridId: number,
   xLocation: number,
   yLocation: number
 ): Object {
-  var url = "/GridController/GetElement";
+  var url = Routes.getGameElementValue;
   var params = {
     gridId: gridId,
     xLocation: xLocation,
@@ -16,10 +16,10 @@ export function getGameElementValue(
   return MakeRequest(url, params);
 }
 
-export function getGrid(gridId: number) {
-  var url = "/GridController/GetGrid";
+export async function getGrid(gridId: number) {
+  var url = Routes.getGrid;
   var params = {
     gridId: gridId,
   };
-  return MakeRequest(url, params);
+  return await MakeRequest(url, params);
 }

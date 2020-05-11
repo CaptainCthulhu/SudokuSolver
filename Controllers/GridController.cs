@@ -29,7 +29,7 @@ namespace sodokusolver.Controllers
                 {
                     if (gridElements.FirstOrDefault(gridelem => gridelem.XLocation == x  && gridelem.YLocation == y) == null)
                     {
-                        gridElements.Add(new GridElement(x, y, gridId, 0));
+                        gridElements.Add(new GridElement(_random.Next(), x, y, gridId, _random.Next(1, 9), _random.Next(3) - 1 == 1));
                     }
                 }
             }
@@ -47,7 +47,7 @@ namespace sodokusolver.Controllers
                 && x.YLocation == yLocation).FirstOrDefaultAsync<GridElement>();
 
             if (gridElement == null)
-                gridElement = new GridElement(xLocation, yLocation, gridId, 0);
+                gridElement = new GridElement(_random.Next(), xLocation, yLocation, gridId, 0, _random.Next(3) - 1 == 1);
 
             return JsonConvert.SerializeObject(gridElement);
         }                

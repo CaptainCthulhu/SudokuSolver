@@ -12,17 +12,16 @@ namespace sodokusolver
 
         public int Value {get; set;}      
 
-        public static GridElement getGridElement(int id)
+        public bool ReadOnly {get; set;}
+        
+        public GridElement(int id, int xLocation, int yLocation, int gridId, int value, bool readOnly)
         {
-            return new GridElement(0, 0, id, 0);            
-        }
-
-        public GridElement(int xLocation, int yLocation, int gridId, int value)
-        {
+            Id = id;
             XLocation = xLocation;
             YLocation = yLocation;
             GridId = gridId;
             Value = value;
+            ReadOnly = readOnly;
         }
 
     }

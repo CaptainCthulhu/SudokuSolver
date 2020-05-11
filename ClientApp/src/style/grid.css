@@ -1,0 +1,22 @@
+.grid {
+  width: 50%;
+  text-align: center;
+}
+
+input.cell {
+  border: thin solid black;
+  text-align: center;    
+}
+
+.cell.outline {
+    border: medium solid blue;
+}
+
+.cell.invalid {
+    border: thin solid red;
+}
+
+div.cell {
+    border: thin solid black;
+    background-color: grey;
+}

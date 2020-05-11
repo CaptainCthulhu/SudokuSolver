@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import GridElement from "./GridElement";
 import { getGrid } from "../helperFunctions/gets";
+import { GridElementValues } from "../helperClasses/GridElementValues";
+import "../style/grid.css";
 
 interface Props {
   gridId: number;
 }
 
 interface State {
-  gridElements: GridElement[];
+  gridElements: GridElementValues[];
 }
 
 export class Grid extends Component<Props, State> {
@@ -17,63 +19,44 @@ export class Grid extends Component<Props, State> {
       var row = [];
       for (let x: number = 0; x < 9; x++) {
         let element = this.state.gridElements.find(function (obj) {
-          return obj.props.xLocation === x && obj.props.yLocation === y;
+          return obj.XLocation === x && obj.YLocation === y;
         });
-
-        row.push(
-          <div className={"col"} key={Math.random()}>
-            {element !== undefined ? element.render() : ""}
-          </div>
-        );
+        if (element !== undefined) {
+          row.push(           
+              <GridElement
+                id={element.Id}
+                xLocation={element.XLocation}
+                yLocation={element.YLocation}
+                gridId={element.GridId}
+                readOnly={element.ReadOnly}
+                value={element.Value}
+                key={element.Id}
+              />            
+          );
+        }
       }
       elems.push(
-        <div className="row" key={Math.random()}>
+        <div className="row" key={y + 100}>
           {row}
         </div>
       );
     }
-    return <div className={"border"}> {elems} </div>;
+    return <div className={"grid"}> {elems} </div>;
   }
 
   constructor(props: Props) {
-    super(props);
-    let elements: GridElement[] = [];
-    let count: number = 0;
-    for (var y = 0; y < 9; y++) {
-      for (var x = 0; x < 9; x++)
-        elements.push(
-          new GridElement({
-            xLocation: x,
-            yLocation: y,
-            gridId: this.props.gridId,
-            readOnly: true,
-            value: count,
-          })
-        );
-      count++;
-    }
-    this.state = { gridElements: elements };
+    super(props);        
+    this.state = { gridElements: []};
   }
 
-  componentDidMount() {
-    var returnObj = getGrid(this.props.gridId);
-    returnObj.then((response) => {
-      let gridelems = response as GridElement[];
-      let elements: GridElement[] = [];
-      for (var count = 0; count < gridelems.length; count++) {
-        const item: GridElement = gridelems[count];
-        elements.push(
-          new GridElement({
-            xLocation: item.props.xLocation,
-            yLocation: item.props.yLocation,
-            gridId: item.props.gridId,
-            readOnly: item.props.readOnly,
-            value: item.props.value,
-          })
-        );
-      }
+  async componentDidMount() {
+    let gridelems = await getGrid(this.props.gridId);
+    let elements: GridElementValues[] = [];
+    for (var count = 0; count < gridelems.length; count++) {
+      const item: GridElementValues = gridelems[count];
+      elements.push(item);
+    }
 
-      this.setState({ gridElements: elements });
-    });
+    this.setState({ gridElements: elements });
   }
 }
