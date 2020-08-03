@@ -1,64 +1,46 @@
-import React, * as react from "react";
+import React, { useState } from "react";
 import "../style/grid.css";
 
 interface Props {
-  id: number;
-  xLocation: number;
-  yLocation: number;
-  gridId: number;
-  readOnly: boolean;
-  value: number;
+    id: number;
+    xLocation: number;
+    yLocation: number;
+    gridId: number;
+    readOnly: boolean;
+    value: number;
 }
 
-interface State {
-  value: string;
-  selected: boolean;
-  valid: boolean;
-}
+export default function GridElement(props: Props) {
 
-export default class GridElement extends react.Component<Props, State> {    
+    const [selected, setSelected] = useState(false);
+    const [value, setValue] = useState(props.value);
+    const [valid, setValid] = useState(false);
 
-  render() {
-    if (this.props.readOnly)
-      return <div className={"col-1 cell"}>{this.state.value}</div>;
-    else return <input className={this.getClass()} value={this.state.value} onClick={this.handleClick} onBlur={this.handleBlur} onChange={this.handleChange} ></input>;
-  }
+    if (props.readOnly)
+        return <div className={"col-1 cell"}>{value}</div>;
+    else return <input className={getClass()} value={value} onClick={handleClick} onBlur={handleBlur} onChange={handleChange} ></input>;
 
-  constructor(props: Props) {
-    super(props);
-    this.state = { 
-      value: this.props.value.toString(), 
-      selected: false,
-      valid: true };   
-  }  
+    function getClass(): string {
+        var cssClasses = "col-1 cell ";
+        if (selected)
+            cssClasses.concat("outline ");
+        if (!valid)
+            cssClasses.concat("invalid ");
+        return cssClasses;
+    }
 
-  getClass = () : string => {
-    var cssClasses = "col-1 cell ";
-    if (this.state.selected)
-      cssClasses.concat("outline ");
-    if (!this.state.valid)
-      cssClasses.concat("invalid ");
-    return cssClasses;
-  }
+    function handleBlur(e: React.FocusEvent<HTMLInputElement>): void {
+        setSelected(false);
+    }
 
-  handleBlur = (e: React.FocusEvent<HTMLInputElement>) : void => 
-  {
-    this.setState({selected: false});
-  }
+    function handleClick(e: React.MouseEvent<HTMLInputElement, MouseEvent>): void {
+        setSelected(true);
+    }
 
-  handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) : void =>
-  {
-      this.setState({selected: true});
-  }
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
+        var changedValue = e.target.value;
 
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) : void =>
-  { 
-    var changedValue = e.target.value;
-    var valid = (/^\d$/).test(changedValue)
-
-    this.setState({
-      value: changedValue,
-      valid: valid
-    });    
-  }
+        setValid((/^\d$/).test(changedValue));
+        setValue(parseInt(changedValue));
+    }
 }
