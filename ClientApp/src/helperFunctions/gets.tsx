@@ -1,5 +1,6 @@
 import { MakeRequest } from "./requests";
 import * as Routes from "../Constants/Routes";
+import { GridElementValues } from "../helperClasses/GridElementValues";
 
 export function getGameElementValue(
   gridId: number,
@@ -16,7 +17,7 @@ export function getGameElementValue(
   return MakeRequest(url, params);
 }
 
-export async function getGrid(gridId: number) {
+export async function getGrid(gridId: number): Promise<GridElementValues[]> {
   var url = Routes.getGrid;
   var params = {
     gridId: gridId,
