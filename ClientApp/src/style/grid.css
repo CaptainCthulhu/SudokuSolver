@@ -5,18 +5,18 @@
 
 input.cell {
   border: thin solid black;
-  text-align: center;    
+  text-align: center;
 }
 
 .cell.outline {
-    border: medium solid blue;
+  border: medium solid blue;
 }
 
 .cell.invalid {
-    border: thin solid red;
+  border: thin solid red;
 }
 
 div.cell {
-    border: thin solid black;
-    background-color: grey;
+  border: thin solid black;
+  background-color: grey;
 }

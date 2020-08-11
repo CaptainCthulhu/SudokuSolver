@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using SodokuSolver.Models;
 
-namespace sodokusolver.Migrations
+namespace SodokuSolver.Migrations
 {
     public partial class ReadOnlyGridElement : Migration
     {

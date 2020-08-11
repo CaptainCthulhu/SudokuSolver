@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace sodokusolver {
+namespace SodokuSolver.Models {
     public class SudokuContext : DbContext {
         public SudokuContext (DbContextOptions<SudokuContext> options) : base (options) {
             var optionsBuilder = new DbContextOptionsBuilder<SudokuContext> ();

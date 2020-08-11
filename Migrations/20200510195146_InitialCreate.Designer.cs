@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using sodokusolver;
+using SodokuSolver.Services;
+using SodokuSolver.Models;
 
-namespace sodokusolver.Migrations
+namespace SodokuSolver.Migrations
 {
     [DbContext(typeof(SudokuContext))]
     [Migration("20200510195146_InitialCreate")]

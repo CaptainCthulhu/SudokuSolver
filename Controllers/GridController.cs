@@ -5,29 +5,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using MediatR;
+using SodokuSolver.Models;
+using SodokuSolver.Models.Requests;
 
-namespace sodokusolver.Controllers {
+namespace SodokuSolver.Controllers {
     public class GridController : Controller {
         SudokuContext _context;
         Random _random;
-        public GridController (SudokuContext context) {
+        Mediator _mediator;
+        public GridController (SudokuContext context, Mediator mediator) {
             _context = context;
+            _mediator = mediator;
             _random = new Random ();
+
         }
 
         [Route ("/GridController/GetGrid")]
-        public async Task<string> GetGrid (int gridId) {
-            var gridElements = await _context.GridElements.Where (x => x.GridId == gridId).ToListAsync<GridElement> ();
-
-            for (int y = 0; y < 9; y++) {
-                for (int x = 0; x < 9; x++) {
-                    if (gridElements.FirstOrDefault (gridelem => gridelem.XLocation == x && gridelem.YLocation == y) == null) {
-                        gridElements.Add (new GridElement (_random.Next (), x, y, gridId, _random.Next (1, 9), _random.Next (3) - 1 == 1));
-                    }
-                }
-            }
-
-            return JsonConvert.SerializeObject (gridElements);
+        public async Task<string> GetGrid (int gridId) 
+        {
+           var result = await _mediator.Send(new GenerateGridRequest(gridId));
+           return result.ToString();
         }
 
         [Route ("/GridController/GetElement")]

@@ -1,6 +1,6 @@
 using System;
 
-namespace sodokusolver {
+namespace SodokuSolver.Models {
     public class GridElement {
         public int Id { get; set; }
         public int XLocation { get; set; }
